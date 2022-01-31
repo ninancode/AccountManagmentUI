@@ -1,0 +1,32 @@
+.account{
+    flex-direction: column;
+    width: 75vw;
+    /* height: 10vh; */
+    margin:10px;
+}
+.accountInfo{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    background-color: #a2ddff;
+    color: black;
+}
+
+.valueTitle{
+    margin-bottom: 5px;
+    margin-top: 25px;
+}
+
+.accountText{
+    margin-bottom: 20px;
+    margin-top: 0px;
+    color:blue;
+    font-weight: 500;
+}
+
+.balanceText{
+    margin-bottom: 20px;
+    margin-top: 0px;
+    color:green;
+    font-weight: 500;
+}

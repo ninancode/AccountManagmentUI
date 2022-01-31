@@ -1,0 +1,21 @@
+.login {
+    justify-content: center;
+    align-items: center;
+}
+.formSection {
+    flex-direction: row;
+    justify-content: center;
+}
+
+.formLabel {
+    align-self: flex-end;
+    padding-right: 5px;
+}
+
+.formInput {
+    align-self: flex-end;
+}
+
+.button {
+    align-self: center;
+}
