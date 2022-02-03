@@ -1,0 +1,21 @@
+.nav{
+    margin-bottom: 10px;
+    background-color: #EE6352;
+    width: 100%;
+    margin-top:-4.5vh;
+    width: 75vw;
+}
+
+.navContainer{
+    display: flex;
+    justify-content: space-around;
+    width: 75vw;
+}
+
+.active{
+    color: white;
+}
+.inactive{
+    color:white;
+    text-decoration: none;
+}

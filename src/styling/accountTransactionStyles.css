@@ -1,0 +1,9 @@
+.accountTransactionBody{
+    background-color: rgb(224, 224, 224);
+    margin-bottom:-10px;
+    margin-top:-10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    color: black;
+}

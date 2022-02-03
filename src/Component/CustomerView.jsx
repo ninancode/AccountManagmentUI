@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import BankAccountDetails from "./BankAccountDetails";
-import '../styling/customerViewStyles.css'
+import "../styling/customerViewStyles.css"
 
 export default function CustomerView(props) {
 
-    const [data, setData] = useState('');
+    const [data, setData] = useState("");
 
     // useEffect(async() => {
     //     let res = await axios.get(`${request_url}/bankaccounts`);
@@ -12,7 +12,7 @@ export default function CustomerView(props) {
     // }, []);
 
     return (
-        <div class="customerView">
+        <div className="customerView">
         {/* {data.map((bankAccounts) => (
         <MyRequestDetails key={bankAccounts.accountId} bankAccounts={reqbankAccountsuest}/>
     ))} */}

@@ -1,0 +1,59 @@
+.transactionBody {
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+    height: 80vh;
+    justify-content: center;
+    align-items: center;
+}
+
+.transaction {
+    flex-direction: column;
+    width: 75vw;
+    margin:10px;
+    display: flex;
+}
+
+.transactionForm{
+    background-color: #6B8EAE;
+    border: 1px solid #31405f;
+    padding-top: 50px;
+    padding-left: 30px;
+    padding-right: 20px;
+    width:50vw;
+    min-width:500px;
+    margin-top: -5vh;
+    align-self: center;
+    align-items: center;
+    padding-bottom: 50px;
+}
+
+.formFields{
+    /* display: flex; */
+    /* align-items: center; */
+    /* justify-content: center; */
+    padding-left: 4vw;
+    padding-right: 1vw;
+
+}
+
+.transactionInput{
+    /* margin-left: 1vw; */
+    margin-top: 1vh;
+    width: 100%
+}
+
+.fields{
+    min-width:500px;
+}
+
+.transactionOffCenter{
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+/* .center{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+} */

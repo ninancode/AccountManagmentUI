@@ -8,8 +8,9 @@
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    background-color: #a2ddff;
+    background-color: #6B8EAE;
     color: black;
+    /* margin-bottom:-3%; */
 }
 
 .valueTitle{
@@ -20,13 +21,17 @@
 .accountText{
     margin-bottom: 20px;
     margin-top: 0px;
-    color:blue;
+    color:#31405f;
     font-weight: 500;
 }
 
 .balanceText{
     margin-bottom: 20px;
     margin-top: 0px;
-    color:green;
+    color:white;
     font-weight: 500;
+}
+
+.spacing{
+    margin-top:5%;
 }

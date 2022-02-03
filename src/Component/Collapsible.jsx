@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import useCollapse from 'react-collapsed';
+import BankAccountDetails from './BankAccountDetails';
 
 export default function Collapsible() {
     const [ isExpanded, setExpanded ] = useState(false);
@@ -10,9 +11,11 @@ function handleOnClick() {
         setExpanded(!isExpanded);
     }
 return (
-        <div className="collapsible">
+    // <div>
+            
+    <div className="collapsible">
             <div className="header" {...getToggleProps({onClick: handleOnClick})}>
-                {isExpanded ? 'Collapse' : 'Expand'}
+                {isExpanded ? <BankAccountDetails/> : <BankAccountDetails/>}
             </div>
             <div {...getCollapseProps()}>
                 <div className="content">
@@ -21,5 +24,6 @@ return (
                 </div>
             </div>
         </div>
+        // </div>
     );
 }

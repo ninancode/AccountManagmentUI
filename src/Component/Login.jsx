@@ -1,12 +1,17 @@
-import React, { useState } from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import '../styling/loginStyles.css';
 
 export default function Login() {
     const [id, setId] = useState("");
     const [password,setPassword] = useState("");
 
+    useEffect(() => {
+    })
+
     return (
-        <form className="login">
+        <div>
+        <form className="form">
             <div className="formSection">
                 <label className="formLabel">ID: </label>
                 <input 
@@ -25,7 +30,11 @@ export default function Login() {
                     onChange={value => setPassword(value.target.value)}
                 />
             </div>
-            <input className="button" type="submit" value="Submit" />
+            
         </form>
+        <div className="center">
+            <button className="submitBtn">LOGIN</button>
+        </div>
+        </div>
     )
 }
