@@ -10,7 +10,7 @@ export default function Transaction(props) {
     const [rAccountID, setRAccountID] = useState("");
     const [date, setDate] = useState("");
     const [time, setTime] = useState("");
-    const [amount, setAmount] = useState(""); 
+    const [amount, setAmount] = useState("");
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -33,8 +33,8 @@ export default function Transaction(props) {
         function getInfo(){
             let today = new Date();
             let times = new Date();
-            let dd = String(today.getDate()).padStart(2, '0');
-            let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+            let dd = String(today.getDate() + 1).padStart(2, '0');
+            let mm = String(today.getMonth() + 1).padStart(2, '0'); 
             let yyyy = today.getFullYear();
             today = yyyy + '-' + mm + '-' + dd;
             let timeConcat = String(times.getHours()) + ':' + String(times.getMinutes()) + ':' + String(times.getSeconds());
@@ -54,41 +54,60 @@ export default function Transaction(props) {
     }
 
     async function withdrawalRequests() {
-        let myBalance = await axios.get(`http://localhost:8080/api/bankaccounts/${myAccountID}`).then(res => res.data.currBalance);
-        let myNewBalance = Number(myBalance) - Number(amount);
-        console.log(myAccountID)
-        console.log(myNewBalance)
-        axios.post(`http://localhost:8080/api/transactions`,{transactionRef: myAccountID, date:date, time:time, type:"Withdrawal", subtype:"Cash", currBalance:myNewBalance}).then(res=> console.log(res.data));
-        axios.put(`http://localhost:8080/api/bankaccounts`, {accountId: myAccountID, currBalance: myNewBalance, pan: props.id}).then();
+        try{
+            let myBalance = await axios.get(`http://localhost:8080/api/bankaccounts/${myAccountID}`).then(res => res.data.currBalance);
+            let myNewBalance = Number(myBalance) - Number(amount);
+            console.log(myAccountID)
+            console.log(myNewBalance)
+            axios.post(`http://localhost:8080/api/transactions`,{transactionRef: myAccountID, date:date, time:time, type:"Withdrawal", subtype:"Cash", currBalance:myNewBalance}).then(res=> console.log(res.data));
+            axios.put(`http://localhost:8080/api/bankaccounts`, {accountId: myAccountID, currBalance: myNewBalance, pan: props.id}).then();
+            
+            alert("Successful Transaction");
+            navigate("/accounts");
+        } catch (err) {
+            alert("Invalid Info");
+        }
     }
 
     async function depositRequests() {
-        let myBalance = await axios.get(`http://localhost:8080/api/bankaccounts/${myAccountID}`).then(res => res.data.currBalance);
-        let myNewBalance = Number(myBalance) + Number(amount);
-        console.log(myAccountID)
-        console.log(myNewBalance)
-        axios.post(`http://localhost:8080/api/transactions`,{transactionRef: myAccountID, date:date, time:time, type:"Deposit", subtype:"Cash", currBalance:myNewBalance}).then(res=> console.log(res.data));
-        axios.put(`http://localhost:8080/api/bankaccounts`, {accountId: myAccountID, currBalance: myNewBalance, pan: props.id}).then();
+        try{ 
+            let myBalance = await axios.get(`http://localhost:8080/api/bankaccounts/${myAccountID}`).then(res => res.data.currBalance);
+            let myNewBalance = Number(myBalance) + Number(amount);
+            console.log(myAccountID)
+            console.log(myNewBalance)
+            axios.post(`http://localhost:8080/api/transactions`,{transactionRef: myAccountID, date:date, time:time, type:"Deposit", subtype:"Cash", currBalance:myNewBalance}).then(res=> console.log(res.data));
+            axios.put(`http://localhost:8080/api/bankaccounts`, {accountId: myAccountID, currBalance: myNewBalance, pan: props.id}).then();
+            
+            alert("Successful Transaction");
+            navigate("/accounts");
+        } catch (err) {
+            alert("Invalid Info");
+        }
     }
 
-    async function myTransferRequests() {
-        let myBalance = await axios.get(`http://localhost:8080/api/bankaccounts/${myAccountID}`).then(res => res.data.currBalance);
-        let myNewBalance = Number(myBalance) - Number(amount);
+    async function transferRequests() {
+        try{
+            let myBalance = await axios.get(`http://localhost:8080/api/bankaccounts/${myAccountID}`).then(res => res.data.currBalance);
+            let myNewBalance = Number(myBalance) - Number(amount);
+        
+            axios.post(`http://localhost:8080/api/transactions`,{transactionRef: myAccountID, date:date, time:time, type:"Withdrawal", subtype:"Transfer", currBalance:myNewBalance}).then(res=> console.log(res.data));
+            axios.put(`http://localhost:8080/api/bankaccounts`, {accountId: myAccountID, currBalance: myNewBalance, pan: props.id}).then(res=> console.log(res.data));
+            
+            let theirData = await axios.get(`http://localhost:8080/api/bankaccounts/${rAccountID}`).then(res => res.data);
+            let theirBalance = theirData.currBalance;
+            let theirNewBalance = Number(theirBalance) + Number(amount);
+            let theirPan = theirData.pan;
     
-        axios.post(`http://localhost:8080/api/transactions`,{transactionRef: myAccountID, date:date, time:time, type:"Withdrawal", subtype:"Transfer", currBalance:myNewBalance}).then(res=> console.log(res.data));
-        axios.put(`http://localhost:8080/api/bankaccounts`, {accountId: myAccountID, currBalance: myNewBalance, pan: props.id}).then(res=> console.log(res.data));
+            axios.post(`http://localhost:8080/api/transactions`,{transactionRef: rAccountID, date:date, time:time, type:"Deposit", subtype:"Transfer", currBalance:theirNewBalance}).then(res=> console.log(res.data));
+            axios.put(`http://localhost:8080/api/bankaccounts`, {accountId: rAccountID, currBalance: theirNewBalance, pan: theirPan}).then(res=> console.log(res.data));
+            
+            alert("Successful Transaction");
+            navigate("/accounts");
+        } catch (err) {
+            alert("Invalid Info");
+        }
     }
 
-    async function theirTransferRequests() {
-
-        let theirData = await axios.get(`http://localhost:8080/api/bankaccounts/${rAccountID}`).then(res => res.data);
-        let theirBalance = theirData.currBalance;
-        let theirNewBalance = Number(theirBalance) + Number(amount);
-        let theirPan = theirData.pan;
-
-        axios.post(`http://localhost:8080/api/transactions`,{transactionRef: rAccountID, date:date, time:time, type:"Deposit", subtype:"Transfer", currBalance:theirNewBalance}).then(res=> console.log(res.data));
-        axios.put(`http://localhost:8080/api/bankaccounts`, {accountId: rAccountID, currBalance: theirNewBalance, pan: theirPan}).then(res=> console.log(res.data));
-    }
 
     function handleTransactionSubmit(){
         switch(type){
@@ -100,12 +119,10 @@ export default function Transaction(props) {
                 depositRequests();
                 break;
             case "Transfer":
-                myTransferRequests();
-                theirTransferRequests();
-
+                transferRequests();
                 break;
             default:
-                console.log(`sorry`);
+                alert("Invalid Info");
         }
     }
 
@@ -116,7 +133,7 @@ export default function Transaction(props) {
                 <form className="lookUpForm">
                     <div className="transactionOffCenter">
                         <label className="formLabel">My Account: </label>
-                        <select name="typeList" value={myAccountID} onChange={handleMyAccountChange}>
+                        <select name="typeList" value={myAccountID} onChange={handleMyAccountChange} >
                             <option value=""></option>
                             {myAccounts.map((acc, key) => {
                                 return <option key={key} value={acc.accountId}>{acc.accountId}</option>
@@ -158,11 +175,11 @@ export default function Transaction(props) {
                         />
                     </div>
                 </form>
+                
                 <div className="center">
                     <button className="submitBtn" onClick={() => {handleTransactionSubmit()}}>SUBMIT</button>
                 </div>
             </div>
         </div>
-
     )
 }

@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Navigate } from "react-router-dom";
 import '../styling/newCustomerStyling.css';
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react/cjs/react.development";
 
 export default function NewCustomer() {
     const [pan, setPan] = useState("");
@@ -12,28 +13,43 @@ export default function NewCustomer() {
     const [zipcode, setZipCode] = useState("");
     const [email, setEmail] = useState("");
     const [deposit, setDeposit] = useState("");
-    // const [date, setDate] = useState("");
-    // const [time, setTime] = useState("");
-
+    const [date, setDate] = useState("");
+    const [time, setTime] = useState("");
     const navigate = useNavigate();
     
-    let today = new Date();
-    let time = new Date();
-    let dd = String(today.getDate()).padStart(2, '0');
-    let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-    let yyyy = today.getFullYear();
-    today = yyyy + '-' + mm + '-' + dd;
-    let timeConcat = String(time.getHours()) + ':' + String(time.getMinutes()) + ':' + String(time.getSeconds());
+
+    useEffect(() => {
+        getInfo();
+        function getInfo(){
+            let today = new Date();
+            let times = new Date();
+            let dd = String(today.getDate() + 1).padStart(2, '0');
+            let mm = String(today.getMonth() + 1).padStart(2, '0');
+            let yyyy = today.getFullYear();
+            today = yyyy + '-' + mm + '-' + dd;
+            let timeConcat = String(times.getHours()) + ':' + String(times.getMinutes()) + ':' + String(times.getSeconds());
+                setDate(today);
+                setTime(timeConcat);
+        }
+    },[])
+
 
     function handleNewCustomerSubmit() {
         let account;
         postRequests();
         async function postRequests(){
-            axios.post(`http://localhost:8080/api/customers`, {pan:pan, uid:uid, name:name, zipcode:zipcode, email:email, birthdate:dateOfBirth}).then();
-            axios.post(`http://localhost:8080/api/users`, {id:pan, password:"pass", roleId: "2"}).then();
+            try {
+            await axios.post(`http://localhost:8080/api/customers`, {pan:pan, uid:uid, name:name, zipcode:zipcode, email:email, birthdate:dateOfBirth}).then();
+            await axios.post(`http://localhost:8080/api/users`, {id:pan, password:"pass", roleId: "2"});
             account =  await axios.post(`http://localhost:8080/api/bankaccounts`,{currBalance: deposit, pan:pan}).then(res => res.data.accountId);
-            axios.post(`http://localhost:8080/api/transactions`,{transactionRef: account, date:today, time:timeConcat, type:"Deposit", subtype:"Cash", currBalance:deposit}).then();
+            await axios.post(`http://localhost:8080/api/transactions`,{transactionRef: account, date:date, time:time, type:"Deposit", subtype:"Cash", currBalance:deposit}).then();
             navigate("/lookup");
+            alert(`Account creation successful.
+                id: ${pan}
+                pass: pass`);
+            } catch (err) {
+                alert("Invalid info");
+            }
         }
     }
 
