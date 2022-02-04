@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import "../styling/bankAccountDetailsStyles.css";
 import AccountTransaction from "./AccountTransaction";
-// import { CSVLink } from "react-csv";
+import { CSVLink } from "react-csv";
 
 
 export default function BankAccountDetails(props) {
@@ -47,9 +47,9 @@ export default function BankAccountDetails(props) {
                     <div className="">
                         
                         <div className="downloadBtn">
-                            {/* <CSVLink data={transactionList}> */}
+                            <CSVLink data={transactionList}>
                                 <button className="submitBtn">DOWNLOAD TRANSACTIONS</button>
-                            {/* </CSVLink> */}
+                            </CSVLink>
                             
                         </div>
 
