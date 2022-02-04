@@ -6,18 +6,22 @@ import {
 } from "react-router-dom";
 import NewCustomer from "./NewCustomer";
 import LookUp from "./LookUp";
-import CustomerView from "./CustomerView";
+import Accounts from "./Accounts";
 import Login from "./Login";
 import Nav from "./Nav";
 import Transaction from "./Transaction";
 
 export default function RoutingComponent() {
-    const [user, setUser] = useState("");
+    const [id, setId] = useState("");
+
+    const getId = (loginID) => {
+        setId(loginID);
+    }
 
     return (
         <Router>
             <Routes>
-                <Route exact path="/" element={<Login />} />
+                <Route exact path="/" element={<Login getId={getId}/>} />
                 <Route exact path="/lookup"
                     element={
                         <div>
@@ -38,7 +42,7 @@ export default function RoutingComponent() {
                     element={
                         <div>
                             <Nav role={2} />
-                            <CustomerView />
+                            <Accounts id={id}/>
                         </div>
                     }
                 />
@@ -46,7 +50,7 @@ export default function RoutingComponent() {
                     element={
                         <div>
                             <Nav role={2} />
-                            <Transaction />
+                            <Transaction id={id}/>
                         </div>
                     }
                 />

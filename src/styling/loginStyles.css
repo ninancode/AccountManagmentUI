@@ -9,13 +9,22 @@
 
 .formLabel {
     align-self: flex-end;
-    padding-right: 5px;
+    /* padding-right: 5px; */
+
+
 }
 
 .formInput {
-    width: 100%
+    width: 100%;
 }
 
 .button {
     align-self: center;
+}
+
+.error{
+    color:crimson;
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom:-3vh;
 }

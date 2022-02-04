@@ -1,26 +1,21 @@
 import React, {useState} from "react";
 import '../styling/accountTransactionStyles.css';
-export default function AccountTransaction(){
-// export default function AccountTransaction(accountnUmber){
 
+export default function AccountTransaction(props){
     return (
         <div className="accountTransactionBody">
-            <div>
+            <div className="typeTitle">
                 <h6 className="valueTitle">Type</h6>
-                    {/* <p className="card-text">{props.request.accountId}</p> */}
-                <p className="accountText">Cash</p>
+                <p className="transactionText">{props.subtype} {props.type}</p>
             </div>
-            <div>
+            <div className="amountTitle">
                 <h6 className="valueTitle">Amount</h6>
-                    {/* <p className="card-text">{props.request.accountId}</p> */}
-                <p className="accountText">123.00</p>
+                <p className="transactionBalanceText">{props.balance.toFixed(2)}</p>
             </div>
-            <div>
+            <div className="dateTitle">
                 <h6 className="valueTitle">Date</h6>
-                    {/* <p className="card-text">{props.request.accountId}</p> */}
-                <p className="accountText">11/2/21</p>
+                <p className="transactionText">{props.date}</p>
             </div>
-
         </div>
     )
 }

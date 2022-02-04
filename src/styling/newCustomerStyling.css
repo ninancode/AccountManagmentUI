@@ -5,7 +5,7 @@
     height: 80vh;
     justify-content: center;
     align-items: center;
-    margin-top: 3vh;
+    margin-top: 1vh;
 }
 
 ::-webkit-scrollbar {
@@ -32,6 +32,11 @@
     align-self: center;
     align-items: center;
     padding-bottom: 50px;
+}
+
+.newCustomerFormLabel{
+    align-self: flex-end;
+    font-size:20px;
 }
 
 .newCustomerInput{

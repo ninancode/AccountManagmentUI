@@ -7,3 +7,24 @@
     justify-content: space-around;
     color: black;
 }
+
+.typeTitle{
+    max-width: 100px;
+}
+
+.amountTitle{
+    width: 90px;
+}
+
+.transactionText{
+    font-size:22px;
+    margin-top:-5px;
+    margin-bottom:-5px;
+}
+.transactionBalanceText{
+    font-size:22px;
+    font-weight: 500;
+    color:darkgreen;
+    /* margin-top:-5px; */
+    /* margin-bottom:-5px; */
+}

@@ -55,3 +55,10 @@
   margin-left: 1vw;
   margin-top: 1vh;
 }
+
+.lookupError{
+  color:crimson;
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom:6vh;
+}
